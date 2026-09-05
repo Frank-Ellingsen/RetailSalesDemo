@@ -12,10 +12,13 @@ table FactSales
 
 	column Date
 		dataType: dateTime
+		isHidden
 		formatString: Long Date
 		lineageTag: 656e291b-608a-4db9-b619-020d9145fcc2
 		summarizeBy: none
 		sourceColumn: Date
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 

@@ -1,0 +1,230 @@
+table _MEASURES
+	lineageTag: 92eb0c16-5695-449a-8f38-aa57160a82bb
+
+	measure 'Total Cost' = SUM(FactSales[Cost])
+		lineageTag: c4cd68ad-cec7-464d-b9a3-4e22a00402ab
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Revenue' =
+			
+			SUM(FactSales[Revenue])
+		formatString: 0
+		lineageTag: 0f612c30-64ea-4a82-8f48-0a6fdb6b09ae
+
+	measure 'Total Profit' =
+			
+			[Total Revenue] - [Total Cost]
+		lineageTag: 05c29dbd-b6a1-4341-ab81-2de6e8dd5e89
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Units Sold' =
+			
+			SUM ( FactSales[UnitsSold] )
+		lineageTag: 9314437e-c79d-4da2-8ab6-9fa53f450fce
+
+	measure 'Revenue YTD' = TOTALYTD([Total Revenue],DimDate[Date])
+		displayFolder: Time Intelligence
+		lineageTag: cc325d8a-aa4e-45f5-90d1-78534f56d1d5
+
+	measure 'Revenue MTD' = TOTALMTD([Total Revenue],DimDate[Date])
+		displayFolder: Time Intelligence
+		lineageTag: b2832a5d-c23b-4603-acdc-551d94078fda
+
+	measure 'Revenue QTD' = TOTALQTD([Total Revenue],DimDate[Date])
+		displayFolder: Time Intelligence
+		lineageTag: efc7f0f7-fdfc-4674-8c3d-f4179194cdf3
+
+	measure 'Revenue Previous Month' = CALCULATE([Total Revenue],DATEADD(DimDate[Date],-1,MONTH))
+		displayFolder: Time Intelligence
+		lineageTag: b59e5920-1a82-46a8-9701-962b14c26058
+
+	measure 'Revenue Previous Day' = CALCULATE([Total Revenue],DATEADD(DimDate[Date],-1,DAY))
+		displayFolder: Time Intelligence
+		lineageTag: 1050a14d-c2b8-441a-8591-a36e8f2b5688
+
+	measure 'Total Units' = SUM(FactSales[UnitsSold])
+		displayFolder: Operations
+		lineageTag: b5a5444e-2660-4e80-b0df-354d7ea68479
+
+	measure 'Transaction Count' = COUNTROWS(FactSales)
+		displayFolder: Operations
+		lineageTag: b619977d-adaa-4f15-8519-8b5d420cb5d5
+
+	measure 'Revenue Per Unit' = DIVIDE([Total Revenue],[Total Units])
+		displayFolder: Revenue
+		lineageTag: 7f274680-5f98-4a82-ae01-44d6e055dd2a
+
+	measure '% of Total Revenue' = DIVIDE([Total Revenue],CALCULATE([Total Revenue],ALL(DimProduct)))
+		formatString: 0.00%
+		displayFolder: Analysis
+		lineageTag: ee745474-6214-4161-9047-72a3d127c23f
+
+	measure 'Loss-Making Revenue' = CALCULATE([Total Revenue],FactSales[Cost] > FactSales[Revenue])
+		displayFolder: Analysis
+		lineageTag: 28da919f-83d9-4de4-a1ab-cbdec63b4fe7
+
+	measure 'Loss-Making Transactions' = CALCULATE(COUNTROWS(FactSales),FactSales[Cost] > FactSales[Revenue])
+		displayFolder: Analysis
+		lineageTag: 66dbade4-87c4-44a1-93c2-7b947cbfde5a
+
+	measure 'Profitable Sales %' = DIVIDE(CALCULATE(COUNTROWS(FactSales),FactSales[Revenue] > FactSales[Cost]),COUNTROWS(FactSales))
+		formatString: 0.00%
+		displayFolder: Analysis
+		lineageTag: bc465f3c-537b-4df6-8332-e01a52f98344
+
+	measure 'Total Revenue 1' = SUM(FactSales[Revenue])
+		displayFolder: Revenue
+		lineageTag: f8ef5b3d-791b-4073-9479-ebb64e19ef0e
+
+	measure 'Total Units 1' = SUM(FactSales[UnitsSold])
+		displayFolder: Operations
+		lineageTag: 8d34d4ca-d72e-4f86-9a19-de8422941786
+
+	measure Profit = [Total Revenue]-[Total Cost]
+		displayFolder: Profitability
+		lineageTag: 63a9bb27-f0b5-451e-b260-35e9a6117fec
+
+	measure 'Profit Margin %' = DIVIDE([Profit],[Total Revenue])
+		displayFolder: Profitability
+		lineageTag: caab54d1-4343-4908-9c17-01671f4dd441
+
+	measure Customers = DISTINCTCOUNT(FactSales[CustomerKey])
+		displayFolder: Customers
+		lineageTag: a0a2dcfd-aac3-463a-a8df-c64080c3527c
+
+	measure 'Revenue Per Customer' = DIVIDE([Total Revenue],[Customers])
+		displayFolder: Customers
+		lineageTag: 5a56e185-ddf2-4834-bcde-cbe490c501bc
+
+	measure 'Revenue YTD 1' = TOTALYTD([Total Revenue],DimDate[Date])
+		displayFolder: Time Intelligence
+		lineageTag: e1f5024f-d748-4bb2-a862-f649c8bdea0e
+
+	measure 'Revenue MTD 1' = TOTALMTD([Total Revenue],DimDate[Date])
+		displayFolder: Time Intelligence
+		lineageTag: 4c35142f-eb2d-4da4-b30a-f72f4e86c018
+
+	measure '% of Total Revenue 1' = DIVIDE([Total Revenue],CALCULATE([Total Revenue],ALL(DimProduct)))
+		displayFolder: Analysis
+		lineageTag: 61fdebfd-7abd-4da4-a05f-6e794cd2dfa0
+
+	measure 'Selected Product' = SELECTEDVALUE(DimProduct[ProductName], "Multiple Products")
+		displayFolder: Selections
+		lineageTag: e226d6a8-78cc-474d-9d5c-52d9d378b4c7
+
+	measure 'Selected Segment' = SELECTEDVALUE(DimCustomer[Segment], "All Segments")
+		displayFolder: Selections
+		lineageTag: bf6f2790-1fce-4208-8e9d-f2b3ee9cc7ec
+
+	measure 'Revenue Selected Product' = ```
+			
+			    VAR SelectedProduct =
+			        SELECTEDVALUE(DimProduct[ProductName])
+			    RETURN
+			        IF(
+			            NOT ISBLANK(SelectedProduct),
+			            [Total Revenue]
+			        )
+			    
+			```
+		displayFolder: Analysis
+		lineageTag: 71845c97-6284-4aa3-89d3-0f8af7a2e419
+
+	measure 'Report Title' = ```
+			
+			    "Revenue for " &
+			    SELECTEDVALUE(
+			        DimRegion[RegionName],
+			        "All Regions"
+			    )
+			    
+			```
+		displayFolder: Dynamic Titles
+		lineageTag: 151d066f-76ad-47c1-88a6-debad980d499
+
+	measure 'Selected Product Profit' = ```
+			
+			    VAR ProductName =
+			        SELECTEDVALUE(DimProduct[ProductName])
+			    RETURN
+			        IF(
+			            NOT ISBLANK(ProductName),
+			            [Profit]
+			        )
+			    
+			```
+		displayFolder: Analysis
+		lineageTag: 6a34b487-1f78-4084-bca3-bbda3d3f00d2
+
+	measure 'Single Product Selected' = ```
+			
+			    IF(
+			        HASONEVALUE(DimProduct[ProductName]),
+			        1,
+			        0
+			    )
+			    
+			```
+		displayFolder: Selections
+		lineageTag: 35c06b7f-a92d-4649-894e-07fda379b6ec
+
+	measure 'KPI Message' = ```
+			
+			    VAR Margin = [Profit Margin %]
+			    RETURN
+			        SWITCH(
+			            TRUE(),
+			            Margin >= 0.40, "Excellent",
+			            Margin >= 0.20, "Good",
+			            Margin >= 0.10, "Average",
+			            "Needs Attention"
+			        )
+			    
+			```
+		displayFolder: Dynamic Titles
+		lineageTag: 8c17ccd1-f412-45d8-83d4-51819d971078
+
+	measure 'Profitability Band' = ```
+			
+			    SWITCH(
+			        TRUE(),
+			        [Profit Margin %] < 0, "Loss",
+			        [Profit Margin %] < 0.10, "Low Margin",
+			        [Profit Margin %] < 0.25, "Medium Margin",
+			        "High Margin"
+			    )
+			    
+			```
+		displayFolder: Profitability
+		lineageTag: 532ebbd9-0016-4908-aa5f-2e7a54b0cf38
+
+	measure 'Profit KPI' = ```
+			
+			    SWITCH(
+			        TRUE(),
+			        [Profit] < 0, -1,
+			        [Profit Margin %] < 0.10, 0,
+			        1
+			    )
+			    
+			```
+		displayFolder: Profitability
+		lineageTag: 914a604a-2b1b-4fb4-a441-0ec952769592
+
+	column Value
+		formatString: 0
+		lineageTag: 8ae0404e-dffa-48df-9802-1d7a7d3f58df
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _MEASURES = calculated
+		mode: import
+		source = {BLANK()}
+
+	annotation PBI_Id = 99fa2c059a414a57a5ba733d84e8e86c
+

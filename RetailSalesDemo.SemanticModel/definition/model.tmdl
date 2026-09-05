@@ -9,15 +9,18 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_ProTooling = ["DevMode"]
+annotation PBI_ProTooling = ["DevMode","TMDL-Extension"]
 
 annotation PBI_QueryOrder = ["FactSales","DimCustomer","DimProduct","DimRegion"]
+
+annotation __TEdtr = 1
 
 ref table FactSales
 ref table DimCustomer
 ref table DimProduct
 ref table DimRegion
 ref table DimDate
+ref table _MEASURES
 
 ref cultureInfo en-US
 
