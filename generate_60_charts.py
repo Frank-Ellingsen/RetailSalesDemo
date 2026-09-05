@@ -1,0 +1,279 @@
+import json
+import os
+
+BASE_DIR = r"C:\Users\frank\Desktop\dt\DAX\RetailSalesDemo.Report\definition\pages"
+PAGES_JSON_PATH = os.path.join(BASE_DIR, "pages.json")
+
+# Metadata for all 60 charts from Andy Kriebel's "60 Ways to Visualize Time"
+CHARTS = [
+    (1, "Discrete Line Chart", "lineChart", "DimDate", "Month", "_MEASURES", "Total Revenue", None, None),
+    (2, "Continuous Line Chart", "lineChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (3, "Line Chart with Markers", "lineChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (4, "Line Chart with Circle Markers", "lineChart", "DimDate", "Month", "_MEASURES", "Total Revenue", None, None),
+    (5, "Dashed Line Chart", "lineChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (6, "Dotted Line Chart", "lineChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (7, "Stepped Line Chart", "lineChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (8, "Line Chart Multiple Dimensions", "lineChart", "DimDate", "Date", "_MEASURES", "Total Revenue", "DimRegion", "RegionName"),
+    (9, "Line Chart Multiple Measures", "lineChart", "DimDate", "Date", "_MEASURES", ["Total Revenue", "Total Cost", "Total Profit"], None, None),
+    (10, "Line Chart Ends of Line Labels", "lineChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (11, "Moving Average", "lineChart", "DimDate", "Date", "_MEASURES", "Revenue 30D Moving Avg", None, None),
+    (12, "Area Chart", "areaChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (13, "Area Chart + Line Chart", "areaChart", "DimDate", "Date", "_MEASURES", ["Total Revenue", "Total Profit"], None, None),
+    (14, "Area Chart + Dashed Line", "areaChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (15, "Area Chart + Dotted Line", "areaChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (16, "Stacked Area Chart", "areaChart", "DimDate", "Date", "_MEASURES", "Total Revenue", "DimProduct", "Category"),
+    (17, "% of Total Area Chart", "areaChart", "DimDate", "Date", "_MEASURES", "% of Total Revenue", "DimProduct", "Category"),
+    (18, "Line Chart + Moving Avg", "lineChart", "DimDate", "Date", "_MEASURES", ["Total Revenue", "Revenue 30D Moving Avg"], None, None),
+    (19, "Difference from Previous", "clusteredColumnChart", "DimDate", "Date", "_MEASURES", "Revenue MoM Variance", None, None),
+    (20, "% Difference from Previous", "lineChart", "DimDate", "Date", "_MEASURES", "Revenue MoM %", None, None),
+    (21, "Difference vs. First", "lineChart", "DimDate", "Date", "_MEASURES", "Revenue Difference vs First", None, None),
+    (22, "% Difference vs. First", "lineChart", "DimDate", "Date", "_MEASURES", "Revenue % Difference vs First", None, None),
+    (23, "Running Total", "lineChart", "DimDate", "Date", "_MEASURES", "Revenue Running Total", None, None),
+    (24, "Running Total Area Chart", "areaChart", "DimDate", "Date", "_MEASURES", ["Revenue Running Total", "Cost Running Total"], None, None),
+    (25, "Running Total from 1st Sale", "lineChart", "DimDate", "Date", "_MEASURES", "Revenue Running Total", "DimRegion", "RegionName"),
+    (26, "Bar Chart", "barChart", "DimDate", "Month", "_MEASURES", "Total Revenue", None, None),
+    (27, "Stacked Bar Chart", "barChart", "DimDate", "Month", "_MEASURES", "Total Revenue", "DimProduct", "Category"),
+    (28, "% of Total Stacked Bars", "barChart", "DimDate", "Month", "_MEASURES", "% of Total Revenue", "DimProduct", "Category"),
+    (29, "Paired Column Chart", "clusteredColumnChart", "DimDate", "Month", "_MEASURES", ["Total Revenue", "Total Cost"], None, None),
+    (30, "Column Chart", "clusteredColumnChart", "DimDate", "Month", "_MEASURES", "Total Revenue", None, None),
+    (31, "Lollipop Chart", "clusteredColumnChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (32, "Bar-in-Bar Chart", "clusteredColumnChart", "DimDate", "Month", "_MEASURES", ["Total Revenue", "Total Cost"], None, None),
+    (33, "Bar Chart w/ Reference Line", "clusteredColumnChart", "DimDate", "Month", "_MEASURES", "Total Revenue", None, None),
+    (34, "Dual Axis w/ Different Measures", "lineClusteredColumnComboChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None, "Profit Margin %"),
+    (35, "Dual Axis w/ Related Measures", "lineClusteredColumnComboChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None, "Total Profit"),
+    (36, "Variance to Overall Average", "clusteredColumnChart", "DimDate", "Date", "_MEASURES", "Revenue Variance to Overall Avg", None, None),
+    (37, "Variance to Pane Average", "clusteredColumnChart", "DimDate", "Month", "_MEASURES", "Revenue Variance to Overall Avg", None, None),
+    (38, "Cycle Plot", "lineChart", "DimDate", "Weekday", "_MEASURES", "Total Revenue", "DimDate", "Month"),
+    (39, "Single Month Calendar", "tableEx", None, None, None, None, None, None),
+    (40, "Discrete Slope Graph", "lineChart", "DimDate", "Month", "_MEASURES", "Total Revenue", "DimProduct", "Category"),
+    (41, "Continuous Slope Graph", "lineChart", "DimDate", "Month", "_MEASURES", "Total Revenue", "DimRegion", "RegionName"),
+    (42, "Butterfly Chart Single Axis", "barChart", "DimDate", "Month", "_MEASURES", ["Total Revenue", "Negative Cost"], None, None),
+    (43, "Butterfly Chart Dual Axis", "barChart", "DimDate", "Month", "_MEASURES", ["Total Revenue", "Total Cost"], None, None),
+    (44, "Dot Plot", "scatterChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (45, "Barcode Chart", "barChart", "FactSales", "SalesKey", "_MEASURES", "Total Revenue", None, None),
+    (46, "Sparklines", "tableEx", None, None, None, None, None, None),
+    (47, "Sparkbars", "tableEx", None, None, None, None, None, None),
+    (48, "Spark Area Chart", "tableEx", None, None, None, None, None, None),
+    (49, "Connected Dot Plot", "lineChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (50, "Enclosed Dot Plot", "scatterChart", "DimProduct", "Category", "_MEASURES", "Total Revenue", None, None),
+    (51, "Circle Timeline", "scatterChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (52, "Bump Chart", "lineChart", "DimDate", "Month", "_MEASURES", "Product Rank", "DimProduct", "ProductName"),
+    (53, "Seismogram", "barChart", "DimDate", "Date", "_MEASURES", "Revenue MoM Variance", None, None),
+    (54, "Parallel Coordinates", "lineChart", "DimDate", "Month", "_MEASURES", "Total Revenue", "DimProduct", "ProductName"),
+    (55, "Small Multiple Donut Charts", "donutChart", "DimProduct", "Category", "_MEASURES", "Total Revenue", None, None),
+    (56, "Connected Scatterplot", "scatterChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (57, "Connected Scatterplot Dotted Lines", "scatterChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (58, "Animated Connected Scatterplot", "scatterChart", "DimDate", "Date", "_MEASURES", "Total Revenue", None, None),
+    (59, "Waterfall Chart", "waterfallChart", "DimDate", "Date", "_MEASURES", "Total Profit", None, None),
+    (60, "Stock Chart", "clusteredColumnChart", "DimDate", "Date", "_MEASURES", ["Total Revenue", "Total Cost"], None, None),
+]
+
+def make_field_col(entity, prop):
+    return {
+        "field": {
+            "Column": {
+                "Expression": {"SourceRef": {"Entity": entity}},
+                "Property": prop
+            }
+        },
+        "queryRef": f"{entity}.{prop}",
+        "nativeQueryRef": prop,
+        "active": True
+    }
+
+def make_field_measure(entity, prop):
+    return {
+        "field": {
+            "Measure": {
+                "Expression": {"SourceRef": {"Entity": entity}},
+                "Property": prop
+            }
+        },
+        "queryRef": f"{entity}.{prop}",
+        "nativeQueryRef": prop
+    }
+
+def make_kpi_card_visual():
+    measures = ["Total Revenue", "Total Cost", "Total Profit", "Profit Margin %", "Total Units"]
+    projections = [make_field_measure("_MEASURES", m) for m in measures]
+    return {
+        "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+        "name": "kpi_ribbon",
+        "position": {"x": 24, "y": 24, "z": 0, "height": 110, "width": 1872, "tabOrder": 0},
+        "visual": {
+            "visualType": "cardVisual",
+            "query": {
+                "queryState": {
+                    "Data": {"projections": projections}
+                }
+            },
+            "objects": {
+                "value": [{"properties": {"show": {"expr": {"Literal": {"Value": "true"}}}}}]
+            },
+            "drillFilterOtherVisuals": True
+        }
+    }
+
+def make_main_visual(chart_info):
+    idx, title, vtype, cat_entity, cat_prop, val_entity, val_prop, ser_entity, ser_prop = chart_info[:9]
+    secondary_measure = chart_info[9] if len(chart_info) > 9 else None
+
+    # Handle Table/Matrix visuals (39, 46, 47, 48)
+    if vtype == "tableEx":
+        if idx == 39: # Calendar
+            cols = [
+                ("DimDate", "Weekday", "Weekday"),
+                ("DimDate", "Month", "Month"),
+                ("DimDate", "Date", "Date"),
+                ("_MEASURES", "Total Revenue", "Revenue"),
+                ("_MEASURES", "Total Profit", "Profit")
+            ]
+        else: # Sparklines/bars/area
+            cols = [
+                ("DimProduct", "Category", "Category"),
+                ("DimProduct", "ProductName", "Product"),
+                ("_MEASURES", "Total Revenue", "Revenue"),
+                ("_MEASURES", "Total Cost", "Cost"),
+                ("_MEASURES", "Total Profit", "Profit"),
+                ("_MEASURES", "Profit Margin %", "Margin %"),
+                ("_MEASURES", "Total Units", "Units")
+            ]
+        projections = []
+        for ent, prop, nref in cols:
+            if ent == "_MEASURES":
+                item = make_field_measure(ent, prop)
+            else:
+                item = make_field_col(ent, prop)
+            item["nativeQueryRef"] = nref
+            projections.append(item)
+        query_state = {"Values": {"projections": projections}}
+        sort_def = {
+            "sort": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "_MEASURES"}}, "Property": "Total Revenue"}}, "direction": "Descending"}],
+            "isDefaultSort": True
+        }
+    elif vtype == "donutChart":
+        query_state = {
+            "Category": {"projections": [make_field_col(cat_entity, cat_prop)]},
+            "Y": {"projections": [make_field_measure(val_entity, val_prop)]}
+        }
+        sort_def = {
+            "sort": [{"field": {"Measure": {"Expression": {"SourceRef": {"Entity": val_entity}}, "Property": val_prop}}, "direction": "Descending"}],
+            "isDefaultSort": True
+        }
+    elif vtype == "scatterChart":
+        query_state = {
+            "X": {"projections": [make_field_col(cat_entity, cat_prop) if cat_entity != "_MEASURES" else make_field_measure(cat_entity, cat_prop)]},
+            "Y": {"projections": [make_field_measure(val_entity, val_prop)]}
+        }
+        sort_def = None
+    elif vtype == "waterfallChart":
+        query_state = {
+            "Category": {"projections": [make_field_col(cat_entity, cat_prop)]},
+            "Y": {"projections": [make_field_measure(val_entity, val_prop)]}
+        }
+        sort_def = {
+            "sort": [{"field": {"Column": {"Expression": {"SourceRef": {"Entity": cat_entity}}, "Property": cat_prop}}, "direction": "Ascending"}],
+            "isDefaultSort": True
+        }
+    elif vtype == "lineClusteredColumnComboChart":
+        query_state = {
+            "Category": {"projections": [make_field_col(cat_entity, cat_prop)]},
+            "Y": {"projections": [make_field_measure(val_entity, val_prop)]},
+            "Y2": {"projections": [make_field_measure("_MEASURES", secondary_measure)]}
+        }
+        sort_def = {
+            "sort": [{"field": {"Column": {"Expression": {"SourceRef": {"Entity": cat_entity}}, "Property": cat_prop}}, "direction": "Ascending"}],
+            "isDefaultSort": True
+        }
+    else:
+        # Standard lineChart, areaChart, barChart, clusteredColumnChart
+        query_state = {
+            "Category": {"projections": [make_field_col(cat_entity, cat_prop)]}
+        }
+        if isinstance(val_prop, list):
+            y_proj = [make_field_measure(val_entity, p) for p in val_prop]
+        else:
+            y_proj = [make_field_measure(val_entity, val_prop)]
+        query_state["Y"] = {"projections": y_proj}
+
+        if ser_entity and ser_prop:
+            query_state["Series"] = {"projections": [make_field_col(ser_entity, ser_prop)]}
+
+        sort_col = "Date" if cat_prop == "Date" else cat_prop
+        sort_def = {
+            "sort": [{"field": {"Column": {"Expression": {"SourceRef": {"Entity": cat_entity}}, "Property": sort_col}}, "direction": "Ascending"}],
+            "isDefaultSort": True
+        }
+
+    visual_obj = {
+        "visualType": vtype,
+        "query": {"queryState": query_state}
+    }
+    if sort_def:
+        visual_obj["query"]["sortDefinition"] = sort_def
+    visual_obj["drillFilterOtherVisuals"] = True
+
+    return {
+        "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+        "name": f"chart_vis_{idx:02d}",
+        "position": {"x": 24, "y": 150, "z": 1, "height": 906, "width": 1872, "tabOrder": 1},
+        "visual": visual_obj
+    }
+
+def main():
+    # Read existing pages.json
+    with open(PAGES_JSON_PATH, "r", encoding="utf-8") as f:
+        pages_data = json.load(f)
+
+    existing_order = pages_data.get("pageOrder", [])
+    # Keep the initial 5 core pages
+    base_pages = [p for p in existing_order if not p.startswith("ts_p")]
+
+    new_page_order = list(base_pages)
+
+    for chart_info in CHARTS:
+        idx, title = chart_info[0], chart_info[1]
+        page_id = f"ts_p{idx:02d}"
+        page_display_name = f"{idx:02d} {title}"
+        new_page_order.append(page_id)
+
+        page_dir = os.path.join(BASE_DIR, page_id)
+        os.makedirs(page_dir, exist_ok=True)
+
+        # 1. page.json
+        page_json_content = {
+            "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+            "name": page_id,
+            "displayName": page_display_name,
+            "displayOption": "FitToPage",
+            "height": 1080,
+            "width": 1920
+        }
+        with open(os.path.join(page_dir, "page.json"), "w", encoding="utf-8") as f:
+            json.dump(page_json_content, f, indent=2)
+
+        # Visuals dir
+        visuals_dir = os.path.join(page_dir, "visuals")
+        os.makedirs(visuals_dir, exist_ok=True)
+
+        # 2. KPI Ribbon Visual
+        kpi_dir = os.path.join(visuals_dir, "kpi_ribbon")
+        os.makedirs(kpi_dir, exist_ok=True)
+        with open(os.path.join(kpi_dir, "visual.json"), "w", encoding="utf-8") as f:
+            json.dump(make_kpi_card_visual(), f, indent=2)
+
+        # 3. Main Chart Visual
+        main_dir = os.path.join(visuals_dir, f"main_vis_{idx:02d}")
+        os.makedirs(main_dir, exist_ok=True)
+        with open(os.path.join(main_dir, "visual.json"), "w", encoding="utf-8") as f:
+            json.dump(make_main_visual(chart_info), f, indent=2)
+
+    # Update pages.json
+    pages_data["pageOrder"] = new_page_order
+    with open(PAGES_JSON_PATH, "w", encoding="utf-8") as f:
+        json.dump(pages_data, f, indent=2)
+
+    print(f"Successfully generated {len(CHARTS)} dedicated time-series pages!")
+
+if __name__ == "__main__":
+    main()

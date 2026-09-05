@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "ts_p25",
+  "displayName": "25 Running Total from 1st Sale",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920
+}

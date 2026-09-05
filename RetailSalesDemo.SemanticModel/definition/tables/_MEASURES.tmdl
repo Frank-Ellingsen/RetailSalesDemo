@@ -310,6 +310,55 @@ table _MEASURES
 		displayFolder: Analysis
 		lineageTag: f8ad6b77-36cf-416e-e6dc-4ed738296f56
 
+	measure 'Revenue 30D Moving Avg' = ```
+			AVERAGEX(
+				DATESINPERIOD(DimDate[Date], MAX(DimDate[Date]), -30, DAY),
+				[Total Revenue]
+			)
+			```
+		formatString: #,0
+		displayFolder: Time Intelligence
+		lineageTag: e8a9b0c1-d2e3-4f5a-6b7c-8d9e0f1a2b3c
+
+	measure 'Revenue Difference vs First' = ```
+			VAR FirstDate = CALCULATE(MIN(DimDate[Date]), ALLSELECTED(DimDate))
+			VAR FirstRevenue = CALCULATE([Total Revenue], DimDate[Date] = FirstDate)
+			RETURN
+				IF(NOT ISBLANK([Total Revenue]), [Total Revenue] - FirstRevenue)
+			```
+		formatString: #,0;(#,0);"-"
+		displayFolder: Time Intelligence
+		lineageTag: f9b0c1d2-e3f4-4a5b-6c7d-8e9f0a1b2c3d
+
+	measure 'Revenue % Difference vs First' = ```
+			VAR FirstDate = CALCULATE(MIN(DimDate[Date]), ALLSELECTED(DimDate))
+			VAR FirstRevenue = CALCULATE([Total Revenue], DimDate[Date] = FirstDate)
+			RETURN
+				DIVIDE([Total Revenue] - FirstRevenue, FirstRevenue)
+			```
+		formatString: 0.0%
+		displayFolder: Time Intelligence
+		lineageTag: a0c1d2e3-f4a5-4b6c-7d8e-9f0a1b2c3d4e
+
+	measure 'Revenue Variance to Overall Avg' = ```
+			VAR OverallAvg = CALCULATE(AVERAGEX(VALUES(DimDate[Date]), [Total Revenue]), ALLSELECTED(DimDate))
+			RETURN
+				IF(NOT ISBLANK([Total Revenue]), [Total Revenue] - OverallAvg)
+			```
+		formatString: #,0;(#,0);"-"
+		displayFolder: Time Intelligence
+		lineageTag: b1d2e3f4-a5b6-4c7d-8e9f-0a1b2c3d4e5f
+
+	measure 'Negative Cost' = -[Total Cost]
+		formatString: #,0;(#,0);"-"
+		displayFolder: Costs
+		lineageTag: c2e3f4a5-b6c7-4d8e-9f0a-1b2c3d4e5f6a
+
+	measure 'Product Rank' = RANKX(ALL(DimProduct[ProductName]), [Total Revenue], , DESC, DENSE)
+		formatString: 0
+		displayFolder: Analysis
+		lineageTag: d3f4a5b6-c7d8-4e9f-0a1b-2c3d4e5f6a7b
+
 	column Value
 		formatString: 0
 		lineageTag: 8ae0404e-dffa-48df-9802-1d7a7d3f58df
