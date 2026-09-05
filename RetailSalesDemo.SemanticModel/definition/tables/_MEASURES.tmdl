@@ -250,7 +250,7 @@ table _MEASURES
 		displayFolder: Analysis
 		lineageTag: e7fc5a66-25be-405d-d5cb-3dc627185e45
 
-	measure 'Revenue Running Total' = ```
+	measure 'Revenue Running Total' =
 			CALCULATE(
 				[Total Revenue],
 				FILTER(
@@ -258,12 +258,11 @@ table _MEASURES
 					DimDate[Date] <= MAX(DimDate[Date])
 				)
 			)
-			```
 		formatString: #,0
 		displayFolder: Time Intelligence
 		lineageTag: f1a2b3c4-d5e6-47a8-b9c0-1d2e3f4a5b6c
 
-	measure 'Cost Running Total' = ```
+	measure 'Cost Running Total' =
 			CALCULATE(
 				[Total Cost],
 				FILTER(
@@ -271,7 +270,6 @@ table _MEASURES
 					DimDate[Date] <= MAX(DimDate[Date])
 				)
 			)
-			```
 		formatString: #,0
 		displayFolder: Time Intelligence
 		lineageTag: a2b3c4d5-e6f7-48a9-b0c1-2d3e4f5a6b7d
@@ -281,14 +279,13 @@ table _MEASURES
 		displayFolder: Time Intelligence
 		lineageTag: b3c4d5e6-f7a8-49b0-c1d2-3e4f5a6b7c8e
 
-	measure 'Revenue MoM Variance' = ```
+	measure 'Revenue MoM Variance' =
 			VAR PrevMonth = [Revenue Previous Month]
 			RETURN
 				IF(
 					NOT ISBLANK(PrevMonth) && NOT ISBLANK([Total Revenue]),
 					[Total Revenue] - PrevMonth
 				)
-			```
 		formatString: #,0;(#,0);"-"
 		displayFolder: Time Intelligence
 		lineageTag: c4d5e6f7-a8b9-40c1-d2e3-4f5a6b7c8d9f
@@ -310,41 +307,37 @@ table _MEASURES
 		displayFolder: Analysis
 		lineageTag: f8ad6b77-36cf-416e-e6dc-4ed738296f56
 
-	measure 'Revenue 30D Moving Avg' = ```
+	measure 'Revenue 30D Moving Avg' =
 			AVERAGEX(
 				DATESINPERIOD(DimDate[Date], MAX(DimDate[Date]), -30, DAY),
 				[Total Revenue]
 			)
-			```
 		formatString: #,0
 		displayFolder: Time Intelligence
 		lineageTag: e8a9b0c1-d2e3-4f5a-6b7c-8d9e0f1a2b3c
 
-	measure 'Revenue Difference vs First' = ```
+	measure 'Revenue Difference vs First' =
 			VAR FirstDate = CALCULATE(MIN(DimDate[Date]), ALLSELECTED(DimDate))
 			VAR FirstRevenue = CALCULATE([Total Revenue], DimDate[Date] = FirstDate)
 			RETURN
 				IF(NOT ISBLANK([Total Revenue]), [Total Revenue] - FirstRevenue)
-			```
 		formatString: #,0;(#,0);"-"
 		displayFolder: Time Intelligence
 		lineageTag: f9b0c1d2-e3f4-4a5b-6c7d-8e9f0a1b2c3d
 
-	measure 'Revenue % Difference vs First' = ```
+	measure 'Revenue % Difference vs First' =
 			VAR FirstDate = CALCULATE(MIN(DimDate[Date]), ALLSELECTED(DimDate))
 			VAR FirstRevenue = CALCULATE([Total Revenue], DimDate[Date] = FirstDate)
 			RETURN
 				DIVIDE([Total Revenue] - FirstRevenue, FirstRevenue)
-			```
 		formatString: 0.0%
 		displayFolder: Time Intelligence
 		lineageTag: a0c1d2e3-f4a5-4b6c-7d8e-9f0a1b2c3d4e
 
-	measure 'Revenue Variance to Overall Avg' = ```
+	measure 'Revenue Variance to Overall Avg' =
 			VAR OverallAvg = CALCULATE(AVERAGEX(VALUES(DimDate[Date]), [Total Revenue]), ALLSELECTED(DimDate))
 			RETURN
 				IF(NOT ISBLANK([Total Revenue]), [Total Revenue] - OverallAvg)
-			```
 		formatString: #,0;(#,0);"-"
 		displayFolder: Time Intelligence
 		lineageTag: b1d2e3f4-a5b6-4c7d-8e9f-0a1b2c3d4e5f
