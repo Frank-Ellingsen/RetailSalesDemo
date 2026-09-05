@@ -110,20 +110,6 @@ table _MEASURES
 		displayFolder: Customers
 		lineageTag: 5a56e185-ddf2-4834-bcde-cbe490c501bc
 
-	measure 'Profitability Status' = ```
-			VAR Margin = [Profit Margin %]
-			RETURN
-				SWITCH(
-					TRUE(),
-					ISBLANK(Margin), "-",
-					Margin < 0, "▲ Loss Risk (<0%)",
-					Margin < 0.20, "◆ Moderate (0-20%)",
-					"● Strong (>=20%)"
-				)
-			```
-		displayFolder: Profitability
-		lineageTag: 48f9d0c2-7102-4753-9a3b-18a7c2936d91
-
 	measure 'Revenue YTD 1' = TOTALYTD([Total Revenue],DimDate[Date])
 		displayFolder: Time Intelligence
 		lineageTag: e1f5024f-d748-4bb2-a862-f649c8bdea0e
@@ -226,6 +212,19 @@ table _MEASURES
 		displayFolder: Profitability
 		lineageTag: 532ebbd9-0016-4908-aa5f-2e7a54b0cf38
 
+	measure 'Profitability Status' =
+			VAR Margin = [Profit Margin %]
+			RETURN
+				SWITCH(
+					TRUE(),
+					ISBLANK(Margin), "-",
+					Margin < 0, "▲ Loss Risk (<0%)",
+					Margin < 0.20, "◆ Moderate (0-20%)",
+					"● Strong (>=20%)"
+				)
+		displayFolder: Profitability
+		lineageTag: 48f9d0c2-7102-4753-9a3b-18a7c2936d91
+
 	measure 'Cost Per Unit' = DIVIDE([Total Cost], [Total Units])
 		formatString: #,0.00
 		displayFolder: Costs
@@ -251,7 +250,7 @@ table _MEASURES
 		displayFolder: Analysis
 		lineageTag: e7fc5a66-25be-405d-d5cb-3dc627185e45
 
-	measure 'Commercial Risk Indicator' = ```
+	measure 'Commercial Risk Indicator' =
 			VAR LossRatio = [Loss-Making Transactions %]
 			RETURN
 				SWITCH(
@@ -260,7 +259,6 @@ table _MEASURES
 					LossRatio <= 0.15, "◆ Moderate (<=15%)",
 					"▲ Elevated Risk (>15%)"
 				)
-			```
 		displayFolder: Analysis
 		lineageTag: f8ad6b77-36cf-416e-e6dc-4ed738296f56
 

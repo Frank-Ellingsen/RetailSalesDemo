@@ -39,20 +39,20 @@ table DimDate
 		annotation SummarizationSetBy = Automatic
 
 	column Month
-		sortByColumn: 'Month Number'
 		lineageTag: b95c2fa8-2af7-46fd-9a8e-502396b6aca8
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [Month]
+		sortByColumn: 'Month Number'
 
 		annotation SummarizationSetBy = Automatic
 
 	column 'Month Short'
-		sortByColumn: 'Month Number'
 		lineageTag: 093966b2-a5cc-4ac8-baa0-041b248a751b
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [Month Short]
+		sortByColumn: 'Month Number'
 
 		annotation SummarizationSetBy = Automatic
 
