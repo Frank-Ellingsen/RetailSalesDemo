@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "b4e15e2e70c38d6f1ba2",
   "position": {
-    "x": 11.076923076923078,
-    "y": 516.92307692307691,
+    "x": 1196,
+    "y": 178,
     "z": 2,
-    "height": 280.61538461538464,
-    "width": 603.69230769230774,
+    "height": 420,
+    "width": 700,
     "tabOrder": 2
   },
   "visual": {
@@ -47,6 +47,20 @@
               },
               "queryRef": "_MEASURES.Total Revenue",
               "nativeQueryRef": "Total Revenue"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_MEASURES"
+                    }
+                  },
+                  "Property": "Total Profit"
+                }
+              },
+              "queryRef": "_MEASURES.Total Profit",
+              "nativeQueryRef": "Total Profit"
             }
           ]
         }

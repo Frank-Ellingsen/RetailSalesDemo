@@ -2,22 +2,23 @@ table _MEASURES
 	lineageTag: 92eb0c16-5695-449a-8f38-aa57160a82bb
 
 	measure 'Total Cost' = SUM(FactSales[Cost])
+		formatString: #,0
+		displayFolder: Costs
 		lineageTag: c4cd68ad-cec7-464d-b9a3-4e22a00402ab
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Total Revenue' =
 			
 			SUM(FactSales[Revenue])
-		formatString: 0
+		formatString: #,0
+		displayFolder: Revenue
 		lineageTag: 0f612c30-64ea-4a82-8f48-0a6fdb6b09ae
 
 	measure 'Total Profit' =
 			
 			[Total Revenue] - [Total Cost]
+		formatString: #,0;(#,0);"-"
+		displayFolder: Profitability
 		lineageTag: 05c29dbd-b6a1-4341-ab81-2de6e8dd5e89
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Units Sold' =
 			
@@ -45,14 +46,17 @@ table _MEASURES
 		lineageTag: 1050a14d-c2b8-441a-8591-a36e8f2b5688
 
 	measure 'Total Units' = SUM(FactSales[UnitsSold])
+		formatString: #,0
 		displayFolder: Operations
 		lineageTag: b5a5444e-2660-4e80-b0df-354d7ea68479
 
 	measure 'Transaction Count' = COUNTROWS(FactSales)
+		formatString: #,0
 		displayFolder: Operations
 		lineageTag: b619977d-adaa-4f15-8519-8b5d420cb5d5
 
 	measure 'Revenue Per Unit' = DIVIDE([Total Revenue],[Total Units])
+		formatString: #,0.00
 		displayFolder: Revenue
 		lineageTag: 7f274680-5f98-4a82-ae01-44d6e055dd2a
 
@@ -62,10 +66,12 @@ table _MEASURES
 		lineageTag: ee745474-6214-4161-9047-72a3d127c23f
 
 	measure 'Loss-Making Revenue' = CALCULATE([Total Revenue],FactSales[Cost] > FactSales[Revenue])
+		formatString: #,0
 		displayFolder: Analysis
 		lineageTag: 28da919f-83d9-4de4-a1ab-cbdec63b4fe7
 
 	measure 'Loss-Making Transactions' = CALCULATE(COUNTROWS(FactSales),FactSales[Cost] > FactSales[Revenue])
+		formatString: #,0
 		displayFolder: Analysis
 		lineageTag: 66dbade4-87c4-44a1-93c2-7b947cbfde5a
 
@@ -75,28 +81,48 @@ table _MEASURES
 		lineageTag: bc465f3c-537b-4df6-8332-e01a52f98344
 
 	measure 'Total Revenue 1' = SUM(FactSales[Revenue])
+		formatString: #,0
 		displayFolder: Revenue
 		lineageTag: f8ef5b3d-791b-4073-9479-ebb64e19ef0e
 
 	measure 'Total Units 1' = SUM(FactSales[UnitsSold])
+		formatString: #,0
 		displayFolder: Operations
 		lineageTag: 8d34d4ca-d72e-4f86-9a19-de8422941786
 
 	measure Profit = [Total Revenue]-[Total Cost]
+		formatString: #,0;(#,0);"-"
 		displayFolder: Profitability
 		lineageTag: 63a9bb27-f0b5-451e-b260-35e9a6117fec
 
 	measure 'Profit Margin %' = DIVIDE([Profit],[Total Revenue])
+		formatString: 0.0%
 		displayFolder: Profitability
 		lineageTag: caab54d1-4343-4908-9c17-01671f4dd441
 
 	measure Customers = DISTINCTCOUNT(FactSales[CustomerKey])
+		formatString: #,0
 		displayFolder: Customers
 		lineageTag: a0a2dcfd-aac3-463a-a8df-c64080c3527c
 
 	measure 'Revenue Per Customer' = DIVIDE([Total Revenue],[Customers])
+		formatString: #,0.00
 		displayFolder: Customers
 		lineageTag: 5a56e185-ddf2-4834-bcde-cbe490c501bc
+
+	measure 'Profitability Status' = ```
+			VAR Margin = [Profit Margin %]
+			RETURN
+				SWITCH(
+					TRUE(),
+					ISBLANK(Margin), "-",
+					Margin < 0, "▲ Loss Risk (<0%)",
+					Margin < 0.20, "◆ Moderate (0-20%)",
+					"● Strong (>=20%)"
+				)
+			```
+		displayFolder: Profitability
+		lineageTag: 48f9d0c2-7102-4753-9a3b-18a7c2936d91
 
 	measure 'Revenue YTD 1' = TOTALYTD([Total Revenue],DimDate[Date])
 		displayFolder: Time Intelligence

@@ -1,63 +1,47 @@
 {
   "name": "Frontier",
   "dataColors": [
-    "#426871",
-    "#D2B04C",
-    "#A3623A",
-    "#C25A3D",
-    "#C39B6A",
-    "#016E51",
-    "#998F85",
-    "#FFA500",
-    "#87ACB6",
-    "#B8A901",
-    "#FDB15D",
-    "#F48459",
-    "#B09E6A",
-    "#35B854",
-    "#DFCFBF",
-    "#F1C484",
-    "#4F717B",
-    "#897F16",
-    "#BB824A",
-    "#B54C25",
-    "#756947",
-    "#1B5C2A",
-    "#A79B8F",
-    "#C4760B",
-    "#344C52",
-    "#5C540F",
-    "#7D5731",
-    "#793418",
-    "#524934",
-    "#0D2E14",
-    "#706860",
-    "#90520D"
+    "#0072B2",
+    "#D55E00",
+    "#009E73",
+    "#E69F00",
+    "#56B4E9",
+    "#CC79A7",
+    "#4A5568",
+    "#333F48",
+    "#999999",
+    "#F0E442",
+    "#005CAB",
+    "#B84E00"
   ],
-  "background": "#F9F7F2",
-  "foreground": "#252423",
-  "tableAccent": "#426871",
-  "good": "#1AAB40",
-  "neutral": "#D9B300",
-  "bad": "#D64554",
-  "maximum": "#426871",
-  "center": "#C25A3D",
-  "minimum": "#D3F6FF",
-  "null": "#FF7F48",
-  "hyperlink": "#0078d4",
-  "visitedHyperlink": "#0078d4",
+  "background": "#FFFFFF",
+  "foreground": "#1E293B",
+  "tableAccent": "#0072B2",
+  "good": "#0072B2",
+  "neutral": "#E69F00",
+  "bad": "#D55E00",
+  "maximum": "#0072B2",
+  "center": "#E69F00",
+  "minimum": "#D55E00",
+  "null": "#94A3B8",
+  "hyperlink": "#0072B2",
+  "visitedHyperlink": "#56B4E9",
   "textClasses": {
     "callout": {
-      "fontFace": "Verdana"
+      "fontFace": "Segoe UI",
+      "color": "#1E293B"
     },
     "title": {
-      "fontFace": "Verdana"
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1E293B"
     },
     "header": {
-      "fontFace": "Verdana"
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1E293B"
     },
     "label": {
-      "fontFace": "Verdana"
+      "fontFace": "Segoe UI",
+      "color": "#64748B"
     }
   },
   "visualStyles": {
@@ -67,7 +51,7 @@
           {
             "color": {
               "solid": {
-                "color": "#F9F7F2"
+                "color": "#FFFFFF"
               }
             }
           }
@@ -76,7 +60,7 @@
           {
             "backgroundColor": {
               "solid": {
-                "color": "#F9F7F2"
+                "color": "#F8FAFC"
               }
             }
           }
@@ -86,7 +70,7 @@
             "$id": "Applied",
             "foregroundColor": {
               "solid": {
-                "color": "#252423"
+                "color": "#1E293B"
               }
             }
           },
@@ -94,7 +78,62 @@
             "$id": "Available",
             "backgroundColor": {
               "solid": {
-                "color": "#F9F7F2"
+                "color": "#FFFFFF"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "grid": [
+          {
+            "gridVertical": false,
+            "gridHorizontal": true,
+            "gridHorizontalColor": {
+              "solid": {
+                "color": "#E2E8F0"
+              }
+            },
+            "gridHorizontalWeight": 1
+          }
+        ],
+        "columnHeaders": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#1E293B"
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": "#F1F5F9"
+              }
+            },
+            "autoSizeColumnWidth": true
+          }
+        ],
+        "values": [
+          {
+            "fontColorPrimary": {
+              "solid": {
+                "color": "#1E293B"
+              }
+            },
+            "fontColorSecondary": {
+              "solid": {
+                "color": "#1E293B"
+              }
+            },
+            "backColorPrimary": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "backColorSecondary": {
+              "solid": {
+                "color": "#F8FAFC"
               }
             }
           }
@@ -107,7 +146,7 @@
           {
             "background": {
               "solid": {
-                "color": "#F9F7F2"
+                "color": "#FFFFFF"
               }
             }
           }
@@ -120,13 +159,18 @@
           {
             "color": {
               "solid": {
-                "color": "#F9F7F2"
+                "color": "#F8FAFC"
               }
             }
           }
         ],
         "background": [
           {
+            "color": {
+              "solid": {
+                "color": "#F8FAFC"
+              }
+            },
             "transparency": 0
           }
         ]
