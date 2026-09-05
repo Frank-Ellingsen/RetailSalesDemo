@@ -226,18 +226,43 @@ table _MEASURES
 		displayFolder: Profitability
 		lineageTag: 532ebbd9-0016-4908-aa5f-2e7a54b0cf38
 
-	measure 'Profit KPI' = ```
-			
-			    SWITCH(
-			        TRUE(),
-			        [Profit] < 0, -1,
-			        [Profit Margin %] < 0.10, 0,
-			        1
-			    )
-			    
+	measure 'Cost Per Unit' = DIVIDE([Total Cost], [Total Units])
+		formatString: #,0.00
+		displayFolder: Costs
+		lineageTag: a3f81e22-817a-4c19-918d-f9e283741a01
+
+	measure 'Average Order Value' = DIVIDE([Total Revenue], [Transaction Count])
+		formatString: #,0.00
+		displayFolder: Operations
+		lineageTag: b4c92f33-928b-4d2a-a29e-0af394852b12
+
+	measure 'Profit Per Customer' = DIVIDE([Total Profit], [Customers])
+		formatString: #,0.00
+		displayFolder: Customers
+		lineageTag: c5da3e44-039c-4e3b-b3af-1ba405963c23
+
+	measure 'Loss-Making Transactions %' = DIVIDE([Loss-Making Transactions], [Transaction Count])
+		formatString: 0.0%
+		displayFolder: Analysis
+		lineageTag: d6eb4f55-14ad-4f4c-c4ba-2cb516074d34
+
+	measure 'Gross Value of Loss' = CALCULATE(SUMX(FactSales, FactSales[Cost] - FactSales[Revenue]), FactSales[Cost] > FactSales[Revenue])
+		formatString: #,0
+		displayFolder: Analysis
+		lineageTag: e7fc5a66-25be-405d-d5cb-3dc627185e45
+
+	measure 'Commercial Risk Indicator' = ```
+			VAR LossRatio = [Loss-Making Transactions %]
+			RETURN
+				SWITCH(
+					TRUE(),
+					LossRatio = 0, "● Low Risk (0%)",
+					LossRatio <= 0.15, "◆ Moderate (<=15%)",
+					"▲ Elevated Risk (>15%)"
+				)
 			```
-		displayFolder: Profitability
-		lineageTag: 914a604a-2b1b-4fb4-a441-0ec952769592
+		displayFolder: Analysis
+		lineageTag: f8ad6b77-36cf-416e-e6dc-4ed738296f56
 
 	column Value
 		formatString: 0
