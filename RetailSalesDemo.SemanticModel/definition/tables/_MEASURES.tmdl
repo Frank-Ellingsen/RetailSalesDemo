@@ -250,6 +250,54 @@ table _MEASURES
 		displayFolder: Analysis
 		lineageTag: e7fc5a66-25be-405d-d5cb-3dc627185e45
 
+	measure 'Revenue Running Total' = ```
+			CALCULATE(
+				[Total Revenue],
+				FILTER(
+					ALLSELECTED(DimDate[Date]),
+					DimDate[Date] <= MAX(DimDate[Date])
+				)
+			)
+			```
+		formatString: #,0
+		displayFolder: Time Intelligence
+		lineageTag: f1a2b3c4-d5e6-47a8-b9c0-1d2e3f4a5b6c
+
+	measure 'Cost Running Total' = ```
+			CALCULATE(
+				[Total Cost],
+				FILTER(
+					ALLSELECTED(DimDate[Date]),
+					DimDate[Date] <= MAX(DimDate[Date])
+				)
+			)
+			```
+		formatString: #,0
+		displayFolder: Time Intelligence
+		lineageTag: a2b3c4d5-e6f7-48a9-b0c1-2d3e4f5a6b7d
+
+	measure 'Profit Running Total' = [Revenue Running Total] - [Cost Running Total]
+		formatString: #,0;(#,0);"-"
+		displayFolder: Time Intelligence
+		lineageTag: b3c4d5e6-f7a8-49b0-c1d2-3e4f5a6b7c8e
+
+	measure 'Revenue MoM Variance' = ```
+			VAR PrevMonth = [Revenue Previous Month]
+			RETURN
+				IF(
+					NOT ISBLANK(PrevMonth) && NOT ISBLANK([Total Revenue]),
+					[Total Revenue] - PrevMonth
+				)
+			```
+		formatString: #,0;(#,0);"-"
+		displayFolder: Time Intelligence
+		lineageTag: c4d5e6f7-a8b9-40c1-d2e3-4f5a6b7c8d9f
+
+	measure 'Revenue MoM %' = DIVIDE([Revenue MoM Variance], [Revenue Previous Month])
+		formatString: 0.0%
+		displayFolder: Time Intelligence
+		lineageTag: d5e6f7a8-b9c0-41d2-e3f4-5a6b7c8d9e0a
+
 	measure 'Commercial Risk Indicator' =
 			VAR LossRatio = [Loss-Making Transactions %]
 			RETURN
