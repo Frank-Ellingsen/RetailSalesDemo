@@ -1,0 +1,93 @@
+table DimDate
+	lineageTag: 3f5cf4c8-d3bd-4732-89b0-a0ca890e0768
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: General Date
+		lineageTag: d875ea6e-68c6-47ed-a33a-c35256d6bcff
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: 2d04b494-a4ea-4393-af62-bca95212ad34
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		lineageTag: 7f7af64a-7442-44f5-9ff4-f190e2b485b9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Number'
+		formatString: 0
+		lineageTag: ad07908c-b835-4eaa-94d4-a658d0aa6629
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Month Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		lineageTag: b95c2fa8-2af7-46fd-9a8e-502396b6aca8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Short'
+		lineageTag: 093966b2-a5cc-4ac8-baa0-041b248a751b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Short]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Weekday Number'
+		formatString: 0
+		lineageTag: d6c1370c-3040-4052-a0b2-ef1b526fa948
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Weekday Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weekday
+		lineageTag: 42ad8526-8b85-4324-af3b-6d5776c3265c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Weekday]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimDate = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS (
+				    CALENDAR (
+				        DATE ( 2023, 1, 1 ),
+				        DATE ( 2023, 12, 31 )
+				    ),
+				    "Year", YEAR ( [Date] ),
+				    "Quarter", "Q" & QUARTER ( [Date] ),
+				    "Month Number", MONTH ( [Date] ),
+				    "Month", FORMAT ( [Date], "MMMM" ),
+				    "Month Short", FORMAT ( [Date], "MMM" ),
+				    "Weekday Number", WEEKDAY ( [Date], 2 ),
+				    "Weekday", FORMAT ( [Date], "dddd" )
+				)
+
+	annotation PBI_Id = c33d660e147441a8b5191112693c8aa2
+

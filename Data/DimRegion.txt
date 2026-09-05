@@ -1,0 +1,5 @@
+RegionKey,RegionName,Country,SalesManager
+1,North,Norway,John Hansen
+2,South,Norway,Sarah Olsen
+3,East,Norway,Michael Berg
+4,West,Norway,Emma Larsen

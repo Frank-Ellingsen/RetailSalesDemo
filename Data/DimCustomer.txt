@@ -1,0 +1,50 @@
+CustomerKey,CustomerID,Segment,City
+1,CUST-1,Corporate,Oslo
+2,CUST-2,Consumer,Bergen
+3,CUST-3,Consumer,Trondheim
+4,CUST-4,Corporate,Stavanger
+5,CUST-5,Small Business,Kristiansand
+6,CUST-6,Consumer,Oslo
+7,CUST-7,Corporate,Bergen
+8,CUST-8,Small Business,Trondheim
+9,CUST-9,Consumer,Stavanger
+10,CUST-10,Corporate,Kristiansand
+11,CUST-11,Small Business,Oslo
+12,CUST-12,Consumer,Bergen
+13,CUST-13,Corporate,Trondheim
+14,CUST-14,Small Business,Stavanger
+15,CUST-15,Consumer,Kristiansand
+16,CUST-16,Corporate,Oslo
+17,CUST-17,Small Business,Bergen
+18,CUST-18,Consumer,Trondheim
+19,CUST-19,Corporate,Stavanger
+20,CUST-20,Small Business,Kristiansand
+21,CUST-21,Consumer,Oslo
+22,CUST-22,Corporate,Bergen
+23,CUST-23,Small Business,Trondheim
+24,CUST-24,Consumer,Stavanger
+25,CUST-25,Corporate,Kristiansand
+26,CUST-26,Small Business,Oslo
+27,CUST-27,Consumer,Bergen
+28,CUST-28,Corporate,Trondheim
+29,CUST-29,Small Business,Stavanger
+30,CUST-30,Consumer,Kristiansand
+31,CUST-31,Corporate,Oslo
+32,CUST-32,Small Business,Bergen
+33,CUST-33,Consumer,Trondheim
+34,CUST-34,Corporate,Stavanger
+35,CUST-35,Small Business,Kristiansand
+36,CUST-36,Consumer,Oslo
+37,CUST-37,Corporate,Bergen
+38,CUST-38,Small Business,Trondheim
+39,CUST-39,Consumer,Stavanger
+40,CUST-40,Corporate,Kristiansand
+41,CUST-41,Small Business,Oslo
+42,CUST-42,Consumer,Bergen
+43,CUST-43,Corporate,Trondheim
+44,CUST-44,Small Business,Stavanger
+45,CUST-45,Consumer,Kristiansand
+46,CUST-46,Corporate,Oslo
+47,CUST-47,Small Business,Bergen
+48,CUST-48,Consumer,Trondheim
+49,CUST-49,Corporate,Stavanger

@@ -1,0 +1,88 @@
+table FactSales
+	lineageTag: 96161ebd-1c56-4854-9a75-0c7deaa2485f
+
+	column SalesKey
+		dataType: int64
+		formatString: 0
+		lineageTag: aa20a541-55bb-47e1-9084-a130f494449f
+		summarizeBy: count
+		sourceColumn: SalesKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 656e291b-608a-4db9-b619-020d9145fcc2
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: c6658915-d6f9-47cf-a7ec-ba1cd778178d
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 17abf2ea-9645-4df2-a2b7-e2edf8c79c3b
+		summarizeBy: none
+		sourceColumn: RegionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e8ef3257-ef76-4316-9ed2-839a7a7be207
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Revenue
+		dataType: int64
+		formatString: 0
+		lineageTag: 7421dca0-3b9c-4726-88ca-c76b614c54f7
+		summarizeBy: sum
+		sourceColumn: Revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cost
+		dataType: double
+		lineageTag: bcde3687-f4ba-4760-9979-7a59cb89d325
+		summarizeBy: sum
+		sourceColumn: Cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnitsSold
+		dataType: int64
+		formatString: 0
+		lineageTag: 10caee7b-e799-4090-b7ff-153f9e983a79
+		summarizeBy: sum
+		sourceColumn: UnitsSold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactSales = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\frank\Desktop\dt\DAX\Data\FactSales.csv"), [Delimiter = ",", Columns = 8, Encoding = 65001, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"SalesKey", Int64.Type}, {"Date", type date}, {"ProductKey", Int64.Type}, {"RegionKey", Int64.Type}, {"CustomerKey", Int64.Type}, {"Revenue", Int64.Type}, {"Cost", type number}, {"UnitsSold", Int64.Type}})
+				in
+				  #"Changed column type"
+

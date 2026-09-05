@@ -1,0 +1,8 @@
+ProductKey,ProductName,Category,SubCategory,LaunchYear,Status
+1,Product A,Consumer,Standard,2022,Active
+2,Product B,Consumer,Premium,2022,Active
+3,Product C,Business,Standard,2021,Active
+4,Product D,Business,Premium,2021,Active
+5,Product U,Experimental,Prototype,2023,Discontinued
+6,Product V,Experimental,Prototype,2023,Discontinued
+7,Product W,Experimental,Prototype,2023,Discontinued

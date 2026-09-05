@@ -1,0 +1,46 @@
+table DimRegion
+	lineageTag: 8647fedc-b50e-443b-9b0a-70e5c3cd6303
+
+	column RegionKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 3e87969d-5c79-435a-9a54-1d58610ec141
+		summarizeBy: none
+		sourceColumn: RegionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionName
+		dataType: string
+		lineageTag: 4ed4a070-e320-42ca-877d-1dfba1da8854
+		summarizeBy: none
+		sourceColumn: RegionName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 04eb131e-2c28-4bd8-a1d0-ec8b6a47f4c5
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesManager
+		dataType: string
+		lineageTag: 77be5b3c-c78d-4c3e-bcb0-037ac525f244
+		summarizeBy: none
+		sourceColumn: SalesManager
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimRegion = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\frank\Desktop\dt\DAX\Data\DimRegion.txt"), [Delimiter = ",", Columns = 4, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"RegionKey", Int64.Type}, {"RegionName", type text}, {"Country", type text}, {"SalesManager", type text}})
+				in
+				  #"Changed column type"
+

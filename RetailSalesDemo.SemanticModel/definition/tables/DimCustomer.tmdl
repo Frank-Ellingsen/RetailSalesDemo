@@ -1,0 +1,46 @@
+table DimCustomer
+	lineageTag: 00975099-e57c-4e40-a0d5-649c21148c88
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: c3c3a186-3d23-4803-b338-df9735a25175
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerID
+		dataType: string
+		lineageTag: 3fb98d4c-01e6-4f55-b788-7e1408b8f0fa
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segment
+		dataType: string
+		lineageTag: aa0ad9e9-2bc9-48de-b5a6-09fd144ff7cb
+		summarizeBy: none
+		sourceColumn: Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: 269133f4-aae5-4930-8ab9-2967471c0706
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimCustomer = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\frank\Desktop\dt\DAX\Data\DimCustomer.txt"), [Delimiter = ",", Columns = 4, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"CustomerKey", Int64.Type}, {"CustomerID", type text}, {"Segment", type text}, {"City", type text}})
+				in
+				  #"Changed column type"
+

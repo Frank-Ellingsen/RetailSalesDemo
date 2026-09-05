@@ -11,5 +11,13 @@ annotation __PBI_TimeIntelligenceEnabled = 1
 
 annotation PBI_ProTooling = ["DevMode"]
 
+annotation PBI_QueryOrder = ["FactSales","DimCustomer","DimProduct","DimRegion"]
+
+ref table FactSales
+ref table DimCustomer
+ref table DimProduct
+ref table DimRegion
+ref table DimDate
+
 ref cultureInfo en-US
 

@@ -1,0 +1,16 @@
+relationship AutoDetected_5d5aa7fc-8694-4df6-9725-0cb30aaa939c
+	fromColumn: FactSales.CustomerKey
+	toColumn: DimCustomer.CustomerKey
+
+relationship AutoDetected_bdb487db-fe7b-40c4-98af-024da962099c
+	fromColumn: FactSales.ProductKey
+	toColumn: DimProduct.ProductKey
+
+relationship AutoDetected_7761cea3-0289-45e3-ac59-122466e08d2c
+	fromColumn: FactSales.RegionKey
+	toColumn: DimRegion.RegionKey
+
+relationship a7c72b6e-3967-0bba-cecf-0814c8169195
+	fromColumn: FactSales.Date
+	toColumn: DimDate.Date
+
