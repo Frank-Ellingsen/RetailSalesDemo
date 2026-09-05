@@ -23,26 +23,11 @@
                       "Entity": "DimProduct"
                     }
                   },
-                  "Property": "Category"
-                }
-              },
-              "queryRef": "DimProduct.Category",
-              "nativeQueryRef": "Category",
-              "active": true
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "DimProduct"
-                    }
-                  },
                   "Property": "ProductName"
                 }
               },
               "queryRef": "DimProduct.ProductName",
-              "nativeQueryRef": "Product",
+              "nativeQueryRef": "ProductName",
               "active": true
             },
             {
@@ -57,21 +42,7 @@
                 }
               },
               "queryRef": "_MEASURES.Total Revenue",
-              "nativeQueryRef": "Revenue"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_MEASURES"
-                    }
-                  },
-                  "Property": "Total Cost"
-                }
-              },
-              "queryRef": "_MEASURES.Total Cost",
-              "nativeQueryRef": "Cost"
+              "nativeQueryRef": "Total Revenue"
             },
             {
               "field": {
@@ -85,21 +56,7 @@
                 }
               },
               "queryRef": "_MEASURES.Total Profit",
-              "nativeQueryRef": "Profit"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_MEASURES"
-                    }
-                  },
-                  "Property": "Profit Margin %"
-                }
-              },
-              "queryRef": "_MEASURES.Profit Margin %",
-              "nativeQueryRef": "Margin %"
+              "nativeQueryRef": "Total Profit"
             },
             {
               "field": {
@@ -113,7 +70,7 @@
                 }
               },
               "queryRef": "_MEASURES.Total Units",
-              "nativeQueryRef": "Units"
+              "nativeQueryRef": "Total Units"
             }
           ]
         }

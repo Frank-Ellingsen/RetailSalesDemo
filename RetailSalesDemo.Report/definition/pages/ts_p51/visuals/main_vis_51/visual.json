@@ -49,6 +49,24 @@
               "nativeQueryRef": "Total Revenue"
             }
           ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_MEASURES"
+                    }
+                  },
+                  "Property": "Total Units"
+                }
+              },
+              "queryRef": "_MEASURES.Total Units",
+              "nativeQueryRef": "Total Units"
+            }
+          ]
         }
       }
     },

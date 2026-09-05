@@ -42,11 +42,11 @@
                       "Entity": "_MEASURES"
                     }
                   },
-                  "Property": "Total Revenue"
+                  "Property": "Total Cost"
                 }
               },
-              "queryRef": "_MEASURES.Total Revenue",
-              "nativeQueryRef": "Total Revenue"
+              "queryRef": "_MEASURES.Total Cost",
+              "nativeQueryRef": "Total Cost"
             }
           ]
         },
@@ -60,11 +60,11 @@
                       "Entity": "_MEASURES"
                     }
                   },
-                  "Property": "Total Profit"
+                  "Property": "Total Revenue"
                 }
               },
-              "queryRef": "_MEASURES.Total Profit",
-              "nativeQueryRef": "Total Profit"
+              "queryRef": "_MEASURES.Total Revenue",
+              "nativeQueryRef": "Total Revenue"
             }
           ]
         }

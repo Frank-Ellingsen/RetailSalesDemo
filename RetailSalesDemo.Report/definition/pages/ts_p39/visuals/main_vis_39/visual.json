@@ -10,10 +10,29 @@
     "tabOrder": 1
   },
   "visual": {
-    "visualType": "tableEx",
+    "visualType": "pivotTable",
     "query": {
       "queryState": {
-        "Values": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimDate"
+                    }
+                  },
+                  "Property": "Month"
+                }
+              },
+              "queryRef": "DimDate.Month",
+              "nativeQueryRef": "Month",
+              "active": true
+            }
+          ]
+        },
+        "Columns": {
           "projections": [
             {
               "field": {
@@ -29,37 +48,11 @@
               "queryRef": "DimDate.Weekday",
               "nativeQueryRef": "Weekday",
               "active": true
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "DimDate"
-                    }
-                  },
-                  "Property": "Month"
-                }
-              },
-              "queryRef": "DimDate.Month",
-              "nativeQueryRef": "Month",
-              "active": true
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "DimDate"
-                    }
-                  },
-                  "Property": "Date"
-                }
-              },
-              "queryRef": "DimDate.Date",
-              "nativeQueryRef": "Date",
-              "active": true
-            },
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
             {
               "field": {
                 "Measure": {
@@ -72,42 +65,10 @@
                 }
               },
               "queryRef": "_MEASURES.Total Revenue",
-              "nativeQueryRef": "Revenue"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_MEASURES"
-                    }
-                  },
-                  "Property": "Total Profit"
-                }
-              },
-              "queryRef": "_MEASURES.Total Profit",
-              "nativeQueryRef": "Profit"
+              "nativeQueryRef": "Total Revenue"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "_MEASURES"
-                  }
-                },
-                "Property": "Total Revenue"
-              }
-            },
-            "direction": "Descending"
-          }
-        ],
-        "isDefaultSort": true
       }
     },
     "drillFilterOtherVisuals": true

@@ -10,7 +10,7 @@
     "tabOrder": 1
   },
   "visual": {
-    "visualType": "clusteredColumnChart",
+    "visualType": "stackedColumnChart",
     "query": {
       "queryState": {
         "Category": {
@@ -47,6 +47,25 @@
               },
               "queryRef": "_MEASURES.Total Revenue",
               "nativeQueryRef": "Total Revenue"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProduct"
+                    }
+                  },
+                  "Property": "Category"
+                }
+              },
+              "queryRef": "DimProduct.Category",
+              "nativeQueryRef": "Category",
+              "active": true
             }
           ]
         }

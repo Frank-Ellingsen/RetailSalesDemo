@@ -10,7 +10,7 @@
     "tabOrder": 1
   },
   "visual": {
-    "visualType": "areaChart",
+    "visualType": "hundredPercentStackedAreaChart",
     "query": {
       "queryState": {
         "Category": {
@@ -42,11 +42,11 @@
                       "Entity": "_MEASURES"
                     }
                   },
-                  "Property": "% of Total Revenue"
+                  "Property": "Total Revenue"
                 }
               },
-              "queryRef": "_MEASURES.% of Total Revenue",
-              "nativeQueryRef": "% of Total Revenue"
+              "queryRef": "_MEASURES.Total Revenue",
+              "nativeQueryRef": "Total Revenue"
             }
           ]
         },

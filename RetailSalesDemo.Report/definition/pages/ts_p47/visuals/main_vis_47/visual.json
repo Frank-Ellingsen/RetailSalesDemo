@@ -20,29 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DimProduct"
+                      "Entity": "DimRegion"
                     }
                   },
-                  "Property": "Category"
+                  "Property": "RegionName"
                 }
               },
-              "queryRef": "DimProduct.Category",
-              "nativeQueryRef": "Category",
-              "active": true
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "DimProduct"
-                    }
-                  },
-                  "Property": "ProductName"
-                }
-              },
-              "queryRef": "DimProduct.ProductName",
-              "nativeQueryRef": "Product",
+              "queryRef": "DimRegion.RegionName",
+              "nativeQueryRef": "RegionName",
               "active": true
             },
             {
@@ -57,7 +42,7 @@
                 }
               },
               "queryRef": "_MEASURES.Total Revenue",
-              "nativeQueryRef": "Revenue"
+              "nativeQueryRef": "Total Revenue"
             },
             {
               "field": {
@@ -71,35 +56,7 @@
                 }
               },
               "queryRef": "_MEASURES.Total Cost",
-              "nativeQueryRef": "Cost"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_MEASURES"
-                    }
-                  },
-                  "Property": "Total Profit"
-                }
-              },
-              "queryRef": "_MEASURES.Total Profit",
-              "nativeQueryRef": "Profit"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_MEASURES"
-                    }
-                  },
-                  "Property": "Profit Margin %"
-                }
-              },
-              "queryRef": "_MEASURES.Profit Margin %",
-              "nativeQueryRef": "Margin %"
+              "nativeQueryRef": "Total Cost"
             },
             {
               "field": {
@@ -113,7 +70,7 @@
                 }
               },
               "queryRef": "_MEASURES.Total Units",
-              "nativeQueryRef": "Units"
+              "nativeQueryRef": "Total Units"
             }
           ]
         }

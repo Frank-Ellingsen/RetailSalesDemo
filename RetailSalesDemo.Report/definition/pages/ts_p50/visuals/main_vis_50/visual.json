@@ -17,18 +17,17 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DimProduct"
+                      "Entity": "_MEASURES"
                     }
                   },
-                  "Property": "Category"
+                  "Property": "Total Cost"
                 }
               },
-              "queryRef": "DimProduct.Category",
-              "nativeQueryRef": "Category",
-              "active": true
+              "queryRef": "_MEASURES.Total Cost",
+              "nativeQueryRef": "Total Cost"
             }
           ]
         },
@@ -47,6 +46,25 @@
               },
               "queryRef": "_MEASURES.Total Revenue",
               "nativeQueryRef": "Total Revenue"
+            }
+          ]
+        },
+        "Details": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProduct"
+                    }
+                  },
+                  "Property": "Category"
+                }
+              },
+              "queryRef": "DimProduct.Category",
+              "nativeQueryRef": "Category",
+              "active": true
             }
           ]
         }

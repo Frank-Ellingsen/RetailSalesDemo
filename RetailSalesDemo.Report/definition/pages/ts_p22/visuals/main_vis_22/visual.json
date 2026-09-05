@@ -49,6 +49,25 @@
               "nativeQueryRef": "Revenue % Difference vs First"
             }
           ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimRegion"
+                    }
+                  },
+                  "Property": "RegionName"
+                }
+              },
+              "queryRef": "DimRegion.RegionName",
+              "nativeQueryRef": "RegionName",
+              "active": true
+            }
+          ]
         }
       },
       "sortDefinition": {

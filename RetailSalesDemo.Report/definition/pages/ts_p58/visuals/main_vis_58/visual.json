@@ -17,18 +17,17 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DimDate"
+                      "Entity": "_MEASURES"
                     }
                   },
-                  "Property": "Date"
+                  "Property": "Total Revenue"
                 }
               },
-              "queryRef": "DimDate.Date",
-              "nativeQueryRef": "Date",
-              "active": true
+              "queryRef": "_MEASURES.Total Revenue",
+              "nativeQueryRef": "Total Revenue"
             }
           ]
         },
@@ -42,11 +41,30 @@
                       "Entity": "_MEASURES"
                     }
                   },
-                  "Property": "Total Revenue"
+                  "Property": "Total Profit"
                 }
               },
-              "queryRef": "_MEASURES.Total Revenue",
-              "nativeQueryRef": "Total Revenue"
+              "queryRef": "_MEASURES.Total Profit",
+              "nativeQueryRef": "Total Profit"
+            }
+          ]
+        },
+        "Details": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimDate"
+                    }
+                  },
+                  "Property": "Date"
+                }
+              },
+              "queryRef": "DimDate.Date",
+              "nativeQueryRef": "Date",
+              "active": true
             }
           ]
         }
